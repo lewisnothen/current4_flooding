@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effects of Flooding | Current 4</title>
+
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        /* General */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7fbff;
+            color: #263746;
+            margin: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #d9efff;
+            padding: 15px 5%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .navbar-brand {
+            color: #176b91 !important;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .navbar-brand img {
+            width: 42px;
+            margin-right: 8px;
+        }
+
+        .navbar .nav-link {
+            color: #24566d;
+            font-weight: bold;
+            padding: 10px 14px;
+            margin: 0 3px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .navbar .nav-link:hover,
+        .navbar .nav-link.active {
+            color: #0077a8;
+            background-color: #c6e6f8;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 430px;
+            background:
+                linear-gradient(rgba(5, 35, 55, 0.75), rgba(5, 35, 55, 0.75)),
+                url("https://images.unsplash.com/photo-1547683905-f686c993aae5?auto=format&fit=crop&w=1800&q=85");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: white;
+            padding: 80px 0;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 6vw, 65px);
+            font-weight: bold;
+            max-width: 750px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 650px;
+            line-height: 1.7;
+            color: #e4f4ff;
+        }
+
+        .hero-btn {
+            background-color: #5bd0ec;
+            color: #063e5b;
+            border: none;
+            border-radius: 30px;
+            padding: 13px 25px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .hero-btn:hover {
+            background-color: #ffffff;
+            color: #063e5b;
+        }
+
+        /* Section */
+        .section-title {
+            color: #2875a5;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            color: #718494;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        /* Effect Cards */
+        .effect-card {
+            background-color: white;
+            border: none;
+            border-radius: 18px;
+            overflow: hidden;
+            height: 100%;
+            box-shadow: 0 5px 20px rgba(35, 87, 120, 0.08);
+            transition: 0.3s;
+        }
+
+        .effect-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 25px rgba(35, 87, 120, 0.15);
+        }
+
+        .effect-icon {
+            width: 75px;
+            height: 75px;
+            background-color: #e3f5ff;
+            color: #2482b3;
+            border-radius: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 34px;
+            margin-bottom: 20px;
+        }
+
+        .effect-card h4 {
+            color: #24566d;
+            font-weight: bold;
+        }
+
+        .effect-card p {
+            color: #718494;
+            line-height: 1.7;
+        }
+
+        .read-btn {
+            color: #1685b8;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .read-btn:hover {
+            color: #064e70;
+        }
+
+        /* Highlight Section */
+        .highlight-section {
+            background-color: #e5f5ff;
+            border-radius: 25px;
+            padding: 45px;
+        }
+
+        .highlight-icon {
+            font-size: 35px;
+            color: #2482b3;
+        }
+
+        /* Taungoo Section */
+        .taungoo-section {
+            background-color: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 5px 20px rgba(35, 87, 120, 0.07);
+        }
+
+        /* Prevention Banner */
+        .prevention {
+            background: linear-gradient(120deg, #176b91, #42b8d8);
+            color: white;
+            border-radius: 22px;
+            padding: 45px;
+        }
+
+        .prevention .btn {
+            background-color: white;
+            color: #176b91;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            padding: 12px 23px;
+        }
+
+        /* Modal */
+        .modal-content {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background-color: #dff3ff;
+            border: none;
+            padding: 22px 25px;
+        }
+
+        .modal-title {
+            color: #176b91;
+            font-weight: bold;
+        }
+
+        .modal-body {
+            padding: 28px;
+            line-height: 1.8;
+        }
+
+        .modal-effect-icon {
+            font-size: 45px;
+            color: #2587b5;
+            margin-bottom: 15px;
+        }
+
+        .modal-footer {
+            border: none;
+            padding: 15px 25px 25px;
+        }
+
+        .modal-close-btn {
+            background-color: #dff3ff;
+            color: #176b91;
+            border: none;
+            border-radius: 20px;
+            padding: 9px 22px;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #123c55;
+            color: white;
+            padding: 35px 0;
+            margin-top: 70px;
+        }
+
+        footer a {
+            color: #bceaff;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 380px;
+                padding: 65px 0;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .highlight-section,
+            .prevention {
+                padding: 28px 22px;
+            }
+
+            .taungoo-section {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVIGATION BAR -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid">
+
+        <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <img src="../Images/current4-logo.png" alt="Current 4 Logo">
+            Current 4
+        </a>
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="About us.html">About Us</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="Safety_Tips.html">Safety Tips</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="Before&During.html">Before & During</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="Solution.html">UD Tunnel</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#"
+                       data-bs-toggle="dropdown">
+                        More
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="History.html">History</a></li>
+                        <li><a class="dropdown-item" href="Effects.html">Effects of Flooding</a></li>
+                        <li><a class="dropdown-item" href="Quiz.html">Quiz</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+
+                <p class="text-uppercase fw-bold mb-2">
+                    Understanding the Impact
+                </p>
+
+                <h1>The Effects of Flooding</h1>
+
+                <p class="mt-3">
+                    Flooding is more than just rising water. It can affect
+                    people's lives, damage infrastructure, destroy natural
+                    environments, and interrupt entire communities.
+                    Understanding these effects is an important step
+                    towards building a safer future.
+                </p>
+
+                <a href="#effects" class="hero-btn mt-3">
+                    Explore the Effects
+                    <i class="bi bi-arrow-down"></i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- INTRODUCTION -->
+<section class="py-5">
+    <div class="container py-3">
+
+        <div class="text-center mb-5">
+            <h2 class="section-title">How Does Flooding Affect Us?</h2>
+
+            <p class="section-subtitle">
+                Floods can cause immediate damage and create long-term
+                challenges for individuals, families, communities,
+                and the environment.
+            </p>
+        </div>
+
+        <div class="row align-items-center g-4">
+
+            <div class="col-lg-6">
+                <h3 class="fw-bold text-dark">More Than Just Water Damage</h3>
+
+                <p class="text-secondary mt-3" style="line-height: 1.9;">
+                    When heavy rainfall causes rivers to overflow or drainage
+                    systems become overwhelmed, water can spread into
+                    residential areas, roads, schools, and farmland.
+                </p>
+
+                <p class="text-secondary" style="line-height: 1.9;">
+                    The consequences can continue even after floodwater
+                    disappears. Families may need to repair their homes,
+                    businesses may lose income, and communities may face
+                    difficulties accessing clean water and essential services.
+                </p>
+
+                <a href="#effects" class="read-btn">
+                    Discover the main effects
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="highlight-section">
+                    <div class="row g-4">
+
+                        <div class="col-6">
+                            <i class="bi bi-house-damage highlight-icon"></i>
+                            <h5 class="fw-bold mt-3">Property Damage</h5>
+                            <p class="text-secondary small">
+                                Homes and buildings can be damaged.
+                            </p>
+                        </div>
+
+                        <div class="col-6">
+                            <i class="bi bi-heart-pulse highlight-icon"></i>
+                            <h5 class="fw-bold mt-3">Health Risks</h5>
+                            <p class="text-secondary small">
+                                Floodwater can create health hazards.
+                            </p>
+                        </div>
+
+                        <div class="col-6">
+                            <i class="bi bi-cash-stack highlight-icon"></i>
+                            <h5 class="fw-bold mt-3">Economic Loss</h5>
+                            <p class="text-secondary small">
+                                Businesses and livelihoods can suffer.
+                            </p>
+                        </div>
+
+                        <div class="col-6">
+                            <i class="bi bi-tree highlight-icon"></i>
+                            <h5 class="fw-bold mt-3">Environmental Damage</h5>
+                            <p class="text-secondary small">
+                                Soil, water, and habitats can be affected.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- MAIN EFFECTS -->
+<section class="py-5" id="effects">
+    <div class="container py-3">
+
+        <div class="text-center mb-5">
+            <h2 class="section-title">Four Major Effects of Flooding</h2>
+
+            <p class="section-subtitle">
+                Explore the different ways flooding can affect people
+                and the world around them.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Social Effects -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card effect-card p-4">
+
+                    <div class="effect-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+
+                    <h4>Social Effects</h4>
+
+                    <p>
+                        Flooding can disrupt daily life, displace families,
+                        and interrupt education and community activities.
+                    </p>
+
+                    <a href="#" class="read-btn mt-auto"
+                       data-bs-toggle="modal"
+                       data-bs-target="#socialModal">
+                        Learn More <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                </div>
+            </div>
+
+
+            <!-- Economic Effects -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card effect-card p-4">
+
+                    <div class="effect-icon">
+                        <i class="bi bi-currency-dollar"></i>
+                    </div>
+
+                    <h4>Economic Effects</h4>
+
+                    <p>
+                        Floods can damage businesses, destroy crops,
+                        and create expensive recovery and repair costs.
+                    </p>
+
+                    <a href="#" class="read-btn mt-auto"
+                       data-bs-toggle="modal"
+                       data-bs-target="#economicModal">
+                        Learn More <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                </div>
+            </div>
+
+
+            <!-- Environmental Effects -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card effect-card p-4">
+
+                    <div class="effect-icon">
+                        <i class="bi bi-tree"></i>
+                    </div>
+
+                    <h4>Environmental Effects</h4>
+
+                    <p>
+                        Floodwater can cause soil erosion, contaminate
+                        water sources, and damage natural habitats.
+                    </p>
+
+                    <a href="#" class="read-btn mt-auto"
+                       data-bs-toggle="modal"
+                       data-bs-target="#environmentModal">
+                        Learn More <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                </div>
+            </div>
+
+
+            <!-- Infrastructure Effects -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card effect-card p-4">
+
+                    <div class="effect-icon">
+                        <i class="bi bi-buildings"></i>
+                    </div>
+
+                    <h4>Infrastructure Effects</h4>
+
+                    <p>
+                        Roads, bridges, houses, electricity systems,
+                        and drainage networks can be damaged.
+                    </p>
+
+                    <a href="#" class="read-btn mt-auto"
+                       data-bs-toggle="modal"
+                       data-bs-target="#infrastructureModal">
+                        Learn More <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- SOCIAL EFFECT MODAL -->
+<div class="modal fade" id="socialModal" tabindex="-1"
+     aria-labelledby="socialModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="socialModalLabel">
+                    <i class="bi bi-people me-2"></i>
+                    Social Effects of Flooding
+                </h5>
+
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="text-center">
+                    <i class="bi bi-people modal-effect-icon"></i>
+                    <h4 class="fw-bold">Impact on People's Lives</h4>
+                </div>
+
+                <p>
+                    Flooding can affect families and communities in several ways.
+                    People may be forced to leave their homes and move to safer
+                    locations. Schools, workplaces, and public services may
+                    temporarily stop operating.
+                </p>
+
+                <h6 class="fw-bold text-primary">Major consequences:</h6>
+
+                <ul>
+                    <li>Families may lose access to their homes and belongings.</li>
+                    <li>Students may be unable to attend school.</li>
+                    <li>Communities may become separated by flooded roads.</li>
+                    <li>People may experience stress and emotional difficulties.</li>
+                    <li>Access to clean drinking water and healthcare may be limited.</li>
+                </ul>
+
+                <div class="alert alert-info mb-0">
+                    <strong>Remember:</strong> Protecting human lives should
+                    always be the first priority during a flood.
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="modal-close-btn" data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- ECONOMIC EFFECT MODAL -->
+<div class="modal fade" id="economicModal" tabindex="-1"
+     aria-labelledby="economicModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="economicModalLabel">
+                    <i class="bi bi-currency-dollar me-2"></i>
+                    Economic Effects of Flooding
+                </h5>
+
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="text-center">
+                    <i class="bi bi-cash-stack modal-effect-icon"></i>
+                    <h4 class="fw-bold">Financial Losses</h4>
+                </div>
+
+                <p>
+                    Flooding can create serious financial problems for
+                    individuals, businesses, and local communities.
+                    Damaged buildings, roads, equipment, and farmland
+                    may require expensive repairs.
+                </p>
+
+                <h6 class="fw-bold text-primary">Major consequences:</h6>
+
+                <ul>
+                    <li>Damage to shops, homes, and business equipment.</li>
+                    <li>Loss of crops and agricultural income.</li>
+                    <li>Temporary closure of local businesses.</li>
+                    <li>Increased costs for repairing infrastructure.</li>
+                    <li>Loss of income for workers and farmers.</li>
+                </ul>
+
+                <div class="alert alert-info mb-0">
+                    <strong>Remember:</strong> Flood preparedness can help
+                    communities reduce potential financial losses.
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="modal-close-btn" data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- ENVIRONMENTAL EFFECT MODAL -->
+<div class="modal fade" id="environmentModal" tabindex="-1"
+     aria-labelledby="environmentModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="environmentModalLabel">
+                    <i class="bi bi-tree me-2"></i>
+                    Environmental Effects of Flooding
+                </h5>
+
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="text-center">
+                    <i class="bi bi-tree modal-effect-icon"></i>
+                    <h4 class="fw-bold">Damage to Nature</h4>
+                </div>
+
+                <p>
+                    Floodwater can change natural environments.
+                    Fast-moving water may remove soil, damage vegetation,
+                    and carry waste or pollutants into rivers and other
+                    water sources.
+                </p>
+
+                <h6 class="fw-bold text-primary">Major consequences:</h6>
+
+                <ul>
+                    <li>Soil erosion along riverbanks.</li>
+                    <li>Contamination of rivers and drinking water sources.</li>
+                    <li>Damage to plants and natural habitats.</li>
+                    <li>Movement of waste and pollutants into the environment.</li>
+                    <li>Changes to local ecosystems.</li>
+                </ul>
+
+                <div class="alert alert-info mb-0">
+                    <strong>Remember:</strong> Protecting rivers and
+                    maintaining proper drainage can support a healthier
+                    environment.
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="modal-close-btn" data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- INFRASTRUCTURE EFFECT MODAL -->
+<div class="modal fade" id="infrastructureModal" tabindex="-1"
+     aria-labelledby="infrastructureModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="infrastructureModalLabel">
+                    <i class="bi bi-buildings me-2"></i>
+                    Infrastructure Effects of Flooding
+                </h5>
+
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="text-center">
+                    <i class="bi bi-buildings modal-effect-icon"></i>
+                    <h4 class="fw-bold">Damage to Essential Facilities</h4>
+                </div>
+
+                <p>
+                    Floodwater can damage essential infrastructure
+                    that communities depend on every day. This can make
+                    transportation, communication, and access to basic
+                    services more difficult.
+                </p>
+
+                <h6 class="fw-bold text-primary">Major consequences:</h6>
+
+                <ul>
+                    <li>Damage to roads and bridges.</li>
+                    <li>Flooded houses and public buildings.</li>
+                    <li>Disruption to electricity and communication systems.</li>
+                    <li>Blocked drainage systems.</li>
+                    <li>Difficulty accessing hospitals and emergency services.</li>
+                </ul>
+
+                <div class="alert alert-info mb-0">
+                    <strong>Remember:</strong> Strong infrastructure and
+                    effective drainage systems can improve flood resilience.
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="modal-close-btn" data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- TAUNGOO SECTION -->
+<section class="py-5">
+    <div class="container py-3">
+
+        <div class="taungoo-section">
+
+            <div class="row align-items-center g-4">
+
+                <div class="col-lg-7">
+
+                    <span class="badge rounded-pill text-bg-info mb-3">
+                        LOCAL PERSPECTIVE
+                    </span>
+
+                    <h2 class="section-title">
+                        How Can Flooding Affect Taungoo?
+                    </h2>
+
+                    <p class="text-secondary mt-3" style="line-height: 1.9;">
+                        Taungoo experiences seasonal heavy rainfall and
+                        flooding risks associated with rising rivers.
+                        When water levels increase, riverside communities
+                        and low-lying areas can face serious challenges.
+                    </p>
+
+                    <p class="text-secondary" style="line-height: 1.9;">
+                        Flooding may affect houses, roads, farmland,
+                        local businesses, and access to essential services.
+                        Understanding these local impacts helps communities
+                        prepare and respond more effectively.
+                    </p>
+
+                    <a href="History.html" class="read-btn">
+                        Explore Taungoo's Flood History
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                </div>
+
+                <div class="col-lg-5">
+
+                    <div class="bg-info-subtle rounded-4 p-4">
+
+                        <h5 class="fw-bold text-primary mb-3">
+                            Possible Local Impacts
+                        </h5>
+
+                        <p>
+                            <i class="bi bi-house-door-fill text-primary me-2"></i>
+                            Damage to riverside homes
+                        </p>
+
+                        <p>
+                            <i class="bi bi-signpost-2-fill text-primary me-2"></i>
+                            Disrupted transportation
+                        </p>
+
+                        <p>
+                            <i class="bi bi-flower1 text-primary me-2"></i>
+                            Agricultural losses
+                        </p>
+
+                        <p>
+                            <i class="bi bi-droplet-half text-primary me-2"></i>
+                            Contaminated water sources
+                        </p>
+
+                        <p class="mb-0">
+                            <i class="bi bi-people-fill text-primary me-2"></i>
+                            Displacement of families
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- PREVENTION SECTION -->
+<section class="py-4">
+    <div class="container">
+
+        <div class="prevention text-center">
+
+            <i class="bi bi-shield-check display-4"></i>
+
+            <h2 class="fw-bold mt-3">
+                We Can Reduce the Risks
+            </h2>
+
+            <p class="mt-3 mx-auto" style="max-width: 650px;">
+                Although floods cannot always be prevented, communities
+                can reduce their impacts through proper preparation,
+                effective drainage, early warnings, and public awareness.
+            </p>
+
+            <a href="Safety_Tips.html" class="btn mt-3">
+                Explore Flood Safety Tips
+                <i class="bi bi-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+    <div class="container text-center">
+
+        <h4 class="fw-bold">Current 4</h4>
+
+        <p class="text-white-50">
+            Building awareness today for safer communities tomorrow.
+        </p>
+
+        <div class="my-3">
+            <a href="../index.html">Home</a>
+            <a href="About us.html">About Us</a>
+            <a href="Safety_Tips.html">Safety Tips</a>
+            <a href="Solution.html">Our Solution</a>
+        </div>
+
+        <div class="mb-3">
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a>
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a>
+            <a href="#" aria-label="YouTube"><i class="bi bi-youtube fs-5"></i></a>
+        </div>
+
+        <hr class="border-light opacity-25">
+
+        <p class="small mb-0">
+            © 2026 Current 4. All Rights Reserved.
+        </p>
+
+    </div>
+</footer>
+
+
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
